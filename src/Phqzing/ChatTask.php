@@ -14,7 +14,7 @@ class ChatTask extends Task {
   }
   
   
-  public function onRun(int $tick):void{
+  public function onRun():void{
     
     foreach(Server::getInstance()->getOnlinePlayers() as $online){
       if(isset($this->plugin->cd[$online->getName()])){
