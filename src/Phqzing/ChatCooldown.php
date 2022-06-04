@@ -5,13 +5,13 @@ namespace Phqzing;
 use pocketmine\plugin\PluginBase;
 use pocketmine\event\Listener;
 use pocketmine\event\player\PlayerChatEvent;
-use pocketmine\Player;
+use pocketmine\player\Player;
 
 class ChatCooldown extends PluginBase implements Listener {
   
   public $cd = [];
   
-  public function onEnable(){
+  public function onEnable(): void{
     @mkdir($this->getDataFolder());
     $this->saveDefaultConfig();
     $this->getResource("config.yml");
@@ -27,7 +27,7 @@ class ChatCooldown extends PluginBase implements Listener {
     
     if(!$player->hasPermission("bypass.chat.cooldown")){
       if(isset($this->cd[$player->getName()])){
-        $ev->setCancelled();
+        $ev->cancel();
         $message = str_replace("{time}", $this->cd[$player->getName()], $message);
         $player->sendMessage($message);
       }else{
